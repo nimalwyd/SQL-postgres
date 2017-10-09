@@ -1,0 +1,87 @@
+select * from view_tables;    //list all the tables in the data base
+CREATE TABLE IF NOT EXISTS foo (animal text,sound text);  // it will prevent the data being accidently removed if one tried to 								create a table which already exists
+DROP TABLE IF EXISTS foo;
+CREATE TABLE foo(
+     id SERIAL PRIMARY KEY,
+     animal TEXT UNIQUE,
+     sound TEXT
+);
+
+INSERT INTO foo  (animal, sound ) VALUES ('bear','grrr') RETURNING id;    
+INSERT INTO tablea SELECT * FROM  tableb;
+UPDATE ta SET col1 = 'hi' WHERE id = 4;   // without the WHERE clause it will change all the columns
+DELETE FROM ta WHERE id = 4;
+SELECT artist AS "Artist", title as "Album" FROM ta; // note that it is a double quote as single would mean an sql string.
+							the column name displayed will change correspondigly
+
+SELECT * FROM track WHERE albumid IN ( SELECT id FROM	album 	WHERE artist ='jimi' OR	artist = 'joe');
+SELECT a.title AS album,t.title AS track, t.track_number FROM album AS a, track AS t WHERE a.id =t.album_id ORDER BY a.title,t.track_number;
+
+SELECT c.name,l.language 
+	FROM countrylanguage AS l  		//example of join statement
+	JOIN country AS c
+	ON l.countrycode = c.code
+		ORDER BY c.name,l.language
+
+SELECT * FROM track LIMIT 5;  //list only top 5 elements from the table track
+INSERT INTO t VALUES(2*2,NULL, LOWER('YOUR NAME'));
+SELECT * FROM city WHERE name LIKE 'z%' ORDER BY name;   // use ILIKE to make it case insetive
+			'a%'--- finds name starting with a 
+			'%a'--- finds name ending with a 
+			'%abc%'--- finds name which has abc at any position 
+      
+
+ 
+
+SELECT
+	CASE WHEN a THEN 'TRUE' ELSE 'FALSE' END as boolA, // here a,b in the table are boolean values
+	CASE WHEN b THEN 'TRUE' ELSE 'FALSE' END as boolb
+	FROM tablename;
+
+SELECT CAST(a1 AS NUMERIC(15,2)), CAST(b1 AS REAL) FROM tablename;
+
+SELECT name,population/100000 as "pop /100000"
+		FROM country
+		WHERE population > 1000000000
+		ORDER BY population DESC;
+SELECT LENGTH('how are you?');  // u can also use CHAR_LENGTH,OCTET_LENGTH
+SELECT 'string1' || 'string2';  // will give output string1string2
+SELECT POSITION('string' IN 'this is a string'); // will give op of 11
+SELECT SUBSTRING('this is a string' FROM 11);  // WILL give op string
+SELECT SUBSTRING('this is a string' FROM 11 FOR 3);  // WILL give op str
+SELECT REPLACE('this is a string','is a','is not a');  // will give output this is not a string
+SELECT OVERLAY('This is a xxxxxx' PLACING 'string' FROM 11);
+SELECT TRIM('     This is a string      ');  // will remove the empty spaces
+SELECT LTRIM('     This is a string      ');  // will trim the left hand side
+SELECT TO_CHAR(124567890.1234,'999,999,999,999.99');  // will give output 124,567,890.12
+SELECT TO_HEX(5555);  // will give output 15B3
+SELECT CURRENT_TIMESTAMP;   // will display the current time and date
+SELECT CURRENT_DATE;
+SELCCT CURRENT_TIME; //time with timezone
+SELECT LOCALTIMESTAMP;  //date time without timezone
+SELECT LOCALTIME; // current time without timezone
+CREATE TABLE t(
+
+	a TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+	b TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	c INTEGER  );
+
+
+SELECT DATE '2011-10-13' - DATE '2011-10-07';  // will give the number of days in between
+SELECT DATE '2011-10-13' - INTERVAL '6 days';
+SELECT TIMESTAMP '2011-10-13 15:35:00' -INTERVAL '6 days 3 hours 15 minutes';
+SELECT EXTRACT(HOUR FROM TIMESTAMP '2011-10-09 15:5:43);
+SELECT EXTRACT( MONTH FROM  INTERVAL '3 years 2 months 1 hour 16 minutes' );
+
+select * from table_name where column1= 'sometext' order by column1 asc;
+select * from table_name where col1='something' and col2='something';
+insert into table_name (col1,col2,col3) values (val1, val2,val3);
+update table set col1 ='this', col2 ='that' where id =1;
+update table_name  set col3=4 where id =5;
+delete from table_name where id = 1;  // you can also add limit 1 to ensure that only one record is deleted
+ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME CHAR(64) 
+Alter table table_name add index index_name (column); 
+		//primary keys are automatically given index, so we dont have to worry about 
+		// them, but foreign keys are not given index, so we have to give index for 			// them
+alter table table_name add index index_name (column_name_to_add_index);  // it will add index 		on the foreign keys in the table
+
