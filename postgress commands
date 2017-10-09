@@ -1,6 +1,17 @@
 pgadmin3
 
 ----------------------------------------------------------------------------------------
+\d  //list all the tables in the database
+\d table_name  // will describe the table 
+\d+  // List all tables in database along with some additional information
+\d+ table_name  //Describe a  specific table with additional information
+\l  // list all the databases
+\l+  // list all the databases with additional information
+\dn   // list all schemas
+\df   // list all functions
+\c db_name  // connect to another database
+\q    // quit from postgres shell
+\e  // text editor inside postgres shell
 
 select * from view_tables;    //list all the tables in the data base
 CREATE TABLE IF NOT EXISTS foo (animal text,sound text);  // it will prevent the data being accidently removed if one tried to 								create a table which already exists
