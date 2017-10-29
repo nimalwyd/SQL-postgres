@@ -84,4 +84,4 @@ Alter table table_name add index index_name (column);
 		//primary keys are automatically given index, so we dont have to worry about 
 		// them, but foreign keys are not given index, so we have to give index for 			// them
 alter table table_name add index index_name (column_name_to_add_index);  // it will add index 		on the foreign keys in the table
-
+ALTER TABLE table_name MODIFY column_name datatype;
